@@ -1,6 +1,6 @@
 # Student Management System
 
-A comprehensive Spring Boot application for managing students, their books, and courses with RESTful API endpoints.
+A Spring Boot application for managing students, their books, and courses with RESTful API endpoints.
 
 ## Features
 
@@ -101,7 +101,7 @@ A comprehensive Spring Boot application for managing students, their books, and 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/student-management-system.git
+   git clone https://github.com/DoaaTawfik0/student-management-system.git
    ```
 2. Navigate to project directory:
    ```bash
