@@ -156,5 +156,3 @@ For interactive testing
 - [ ] Implement pagination and sorting  
 - [ ] Add more comprehensive testing  
 - [ ] Implement DTOs for better separation  
-- [ ] Dockerize application  
-- [ ] Add CI/CD pipeline
