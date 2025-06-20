@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
-import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,9 +14,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "students")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @JsonPropertyOrder({"id", "name", "age", "email", "courses", "books"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Student {

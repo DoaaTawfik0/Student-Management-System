@@ -4,13 +4,9 @@ package entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.*;
 
 @Entity
 @Table(name = "books")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Book {
 
     @Id
