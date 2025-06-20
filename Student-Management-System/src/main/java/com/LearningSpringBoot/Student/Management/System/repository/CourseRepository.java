@@ -1,6 +1,6 @@
-package repository;
+package com.LearningSpringBoot.Student.Management.System.repository;
 
-import entity.Course;
+import com.LearningSpringBoot.Student.Management.System.entity.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {

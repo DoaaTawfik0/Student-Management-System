@@ -1,6 +1,6 @@
-package repository;
+package com.LearningSpringBoot.Student.Management.System.repository;
 
-import entity.Book;
+import com.LearningSpringBoot.Student.Management.System.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
