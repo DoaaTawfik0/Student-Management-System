@@ -1,10 +1,10 @@
-package service;
+package com.LearningSpringBoot.Student.Management.System.service;
 
-import entity.Course;
-import exception.NotFoundException;
+import com.LearningSpringBoot.Student.Management.System.entity.Course;
+import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
-import repository.CourseRepository;
+import com.LearningSpringBoot.Student.Management.System.repository.CourseRepository;
 
 import java.util.List;
 

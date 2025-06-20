@@ -1,9 +1,9 @@
-package service;
+package com.LearningSpringBoot.Student.Management.System.service;
 
-import entity.Book;
-import exception.NotFoundException;
+import com.LearningSpringBoot.Student.Management.System.entity.Book;
+import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import org.springframework.stereotype.Service;
-import repository.BookRepository;
+import com.LearningSpringBoot.Student.Management.System.repository.BookRepository;
 
 import java.util.List;
 

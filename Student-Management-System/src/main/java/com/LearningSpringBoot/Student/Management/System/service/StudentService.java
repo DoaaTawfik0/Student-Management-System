@@ -1,12 +1,12 @@
-package service;
+package com.LearningSpringBoot.Student.Management.System.service;
 
 
-import entity.Course;
-import entity.Student;
-import exception.NotFoundException;
+import com.LearningSpringBoot.Student.Management.System.entity.Course;
+import com.LearningSpringBoot.Student.Management.System.entity.Student;
+import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
+import com.LearningSpringBoot.Student.Management.System.repository.CourseRepository;
+import com.LearningSpringBoot.Student.Management.System.repository.StudentRepository;
 import org.springframework.stereotype.Service;
-import repository.CourseRepository;
-import repository.StudentRepository;
 
 import java.util.List;
 
@@ -37,9 +37,9 @@ public class StudentService {
         Student existingStudent = checkStudentExist(id);
 
         /* do updates on fields*/
-        existingStudent.setName(updatedStudent.getName());
-        existingStudent.setEmail(updatedStudent.getEmail());
-        existingStudent.setDateOfBirth(updatedStudent.getDateOfBirth());
+        existingStudent.setStudentName(updatedStudent.getStudentName());
+        existingStudent.setStudentEmail(updatedStudent.getStudentEmail());
+        existingStudent.setStudentAge(updatedStudent.getStudentAge());
 
         /* apply updates by saving new data */
         studentRepository.save(existingStudent);
@@ -67,7 +67,7 @@ public class StudentService {
                 .orElseThrow(() -> new NotFoundException("Course not found with ID: " + courseId));
 
         // Remove associations from both sides
-        student.getCourses().remove(course);
+        student.getStudentCourses().remove(course);
         course.getStudents().remove(student);
 
         // Persist changes
