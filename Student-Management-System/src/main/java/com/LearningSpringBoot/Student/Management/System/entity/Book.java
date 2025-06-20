@@ -1,4 +1,4 @@
-package entity;
+package com.LearningSpringBoot.Student.Management.System.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -6,12 +6,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "book")
+@Table(name = "books")
 public class Book {
 
     @Id
     @GeneratedValue
-    private int bookId;
+    private int id;
 
     @Size(min = 6, message = "Title of book must have at at least 6 characters !!")
     private String bookTitle;
@@ -24,12 +24,12 @@ public class Book {
     @JoinColumn(name = "student_id", nullable = true) // This creates a foreign key column in the Book table
     private Student student;
 
-    public int getBookId() {
-        return bookId;
+    public int getId() {
+        return id;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public @Size(min = 6, message = "Title of book must have at at least 6 characters !!") String getBookTitle() {
