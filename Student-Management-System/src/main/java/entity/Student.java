@@ -18,9 +18,6 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@ToString
 @JsonPropertyOrder({"id", "name", "age", "email", "courses", "books"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Student {
@@ -49,4 +46,53 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "course_id") // FK for Course
     )
     private Set<Course> studentCourses = new HashSet<>();
+
+    public Set<Course> getStudentCourses() {
+        return studentCourses;
+    }
+
+    public void setStudentCourses(Set<Course> studentCourses) {
+        this.studentCourses = studentCourses;
+    }
+
+    public List<Book> getStudentBooks() {
+        return studentBooks;
+    }
+
+    public void setStudentBooks(List<Book> studentBooks) {
+        this.studentBooks = studentBooks;
+    }
+
+    @Size(min = 10, max = 23, message = "Age of Student must be between 10 & 23 !!")
+    public int getStudentAge() {
+        return studentAge;
+    }
+
+    public void setStudentAge(@Size(min = 10, max = 23, message = "Age of Student must be between 10 & 23 !!") int studentAge) {
+        this.studentAge = studentAge;
+    }
+
+    public @Email(message = "Email must have a valid domain !!") String getStudentEmail() {
+        return studentEmail;
+    }
+
+    public void setStudentEmail(@Email(message = "Email must have a valid domain !!") String studentEmail) {
+        this.studentEmail = studentEmail;
+    }
+
+    public @Size(min = 3, message = "Name of student must have at least 3 characters !!") String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(@Size(min = 3, message = "Name of student must have at least 3 characters !!") String studentName) {
+        this.studentName = studentName;
+    }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
 }
