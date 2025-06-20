@@ -1,52 +1,41 @@
-package entity;
+package com.LearningSpringBoot.Student.Management.System.entity;
 
-import entity.Book;
-import entity.Course;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
-import jdk.jfr.Name;
-import org.jspecify.annotations.NullMarked;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 
-
-@JsonPropertyOrder({"id", "name", "email", "dateOfBirth", "courses", "books"})
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
+@Table(name = "students")
+@JsonPropertyOrder({"id", "name", "age", "email", "courses", "books"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Student {
-
 
     @Id
     @GeneratedValue
     private int id;
 
+    @Size(min = 3, message = "Name of student must have at least 3 characters !!")
+    private String studentName;
 
-    @Size(min = 3, message = "name must have more than 3 characters!!")
-    private String name;
-
-
+    @Email(message = "Email must have a valid domain !!")
     @NotBlank
-    @Email(message = "Invalid Email Format")
-    private String email;
+    private String studentEmail;
 
-    @Past
-    private LocalDate dateOfBirth;
+    @Size(min = 10, max = 23, message = "Age of Student must be between 10 & 23 !!")
+    private int studentAge;
 
     // 'student' refers to the field in Course , applying cascading
     @OneToMany(mappedBy = "student")
-    private List<Book> books;
+    private List<Book> studentBooks;
 
     @ManyToMany()
     @JoinTable(
@@ -54,79 +43,54 @@ public class Student {
             joinColumns = @JoinColumn(name = "student_id"), // FK for Student
             inverseJoinColumns = @JoinColumn(name = "course_id") // FK for Course
     )
-    private Set<Course> courses = new HashSet<>();
+    private Set<Course> studentCourses = new HashSet<>();
 
-
-    public Student() {
+    public Set<Course> getStudentCourses() {
+        return studentCourses;
     }
 
-    public Student(int id, String name, String email, LocalDate dateOfBirth) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
+    public void setStudentCourses(Set<Course> studentCourses) {
+        this.studentCourses = studentCourses;
     }
 
-    @JsonProperty("studentId")
+    public List<Book> getStudentBooks() {
+        return studentBooks;
+    }
+
+    public void setStudentBooks(List<Book> studentBooks) {
+        this.studentBooks = studentBooks;
+    }
+
+    @Size(min = 10, max = 23, message = "Age of Student must be between 10 & 23 !!")
+    public int getStudentAge() {
+        return studentAge;
+    }
+
+    public void setStudentAge(@Size(min = 10, max = 23, message = "Age of Student must be between 10 & 23 !!") int studentAge) {
+        this.studentAge = studentAge;
+    }
+
+    public @Email(message = "Email must have a valid domain !!") String getStudentEmail() {
+        return studentEmail;
+    }
+
+    public void setStudentEmail(@Email(message = "Email must have a valid domain !!") String studentEmail) {
+        this.studentEmail = studentEmail;
+    }
+
+    public @Size(min = 3, message = "Name of student must have at least 3 characters !!") String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(@Size(min = 3, message = "Name of student must have at least 3 characters !!") String studentName) {
+        this.studentName = studentName;
+    }
+
     public int getId() {
         return id;
     }
 
-    @JsonProperty("studentName")
-    public @Size(min = 3, message = "name must have more than 3 characters!!") String getName() {
-        return name;
-    }
-
-    @JsonProperty("studentEmail")
-    public @NotBlank @Email(message = "Invalid Email Format") String getEmail() {
-        return email;
-    }
-
-    @JsonProperty("studentDateOfBirth")
-    public @Past LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public Set<Course> getCourses() {
-        return courses;
-    }
-
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setName(@Size(min = 3, message = "name must have more than 3 characters!!") String name) {
-        this.name = name;
-    }
-
-    public void setEmail(@NotBlank @Email(message = "Invalid Email Format") String email) {
-        this.email = email;
-    }
-
-    public void setDateOfBirth(@Past LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", books=" + books +
-                '}';
     }
 }
