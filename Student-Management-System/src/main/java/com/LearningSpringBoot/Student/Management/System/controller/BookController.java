@@ -79,6 +79,6 @@ public class BookController {
         if (existedBook == null) {
             throw new NotFoundException("Book not found with id: " + bookId);
         }
-        return studentService.getStudentById(existedBook.getStudent().getStudentId());
+        return studentService.getStudentById(existedBook.getStudent().getId());
     }
 }

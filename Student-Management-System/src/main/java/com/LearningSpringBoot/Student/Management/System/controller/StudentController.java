@@ -46,14 +46,14 @@ public class StudentController {
 
     @PostMapping("")
     public ResponseEntity<Student> addStudent(@Valid @RequestBody Student student) {
-        Student existingStudent = studentService.getStudentById(student.getStudentId());
+        Student existingStudent = studentService.getStudentById(student.getId());
         if (existingStudent != null)
             return ResponseEntity.status(409).build();
 
         Student savedStudent = studentService.addStudent(student);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(savedStudent.getStudentId()).toUri();
+                .path("/{id}").buildAndExpand(savedStudent.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
 
@@ -62,7 +62,7 @@ public class StudentController {
         Student savedStudent = studentService.updateStudent(studentId, updatedStudent);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .buildAndExpand(savedStudent.getStudentId()).toUri();
+                .buildAndExpand(savedStudent.getId()).toUri();
         return ResponseEntity.ok().location(location).build();
     }
 
@@ -74,12 +74,12 @@ public class StudentController {
             return ResponseEntity.notFound().build();
 
         //assign null to student fk in book table
-        for (Book book : student.getStudentBooks()) {
+        for (Book book : student.getBooks()) {
             book.setStudent(null);
             bookService.addBook(book);
         }
 
-        student.getStudentCourses().clear(); /* Remove all courses -> handle M:M (student_course table) */
+        student.getCourses().clear(); /* Remove all courses -> handle M:M (student_course table) */
 
         studentService.deleteStudent(studentId);
 
@@ -113,7 +113,7 @@ public class StudentController {
         if (existingStudent == null)
             throw new NotFoundException("Student is not found with Id: " + studentId);
 
-        return existingStudent.getStudentBooks();
+        return existingStudent.getBooks();
     }
 
     @DeleteMapping("/{studentId}/books/{bookId}")
@@ -127,7 +127,7 @@ public class StudentController {
         if (existingBook == null)
             throw new NotFoundException("Book is not found with Id: " + bookId);
 
-        if (existingBook.getStudent() == null || existingBook.getStudent().getStudentId() != studentId)
+        if (existingBook.getStudent() == null || existingBook.getStudent().getId() != studentId)
             throw new NotFoundException("Book does not belong to this student");
 
         existingBook.setStudent(null);
@@ -148,7 +148,7 @@ public class StudentController {
         if (existingCourse == null)
             throw new NotFoundException("Course is not found with Id: " + courseId);
 
-        existingStudent.getStudentCourses().add(existingCourse);
+        existingStudent.getCourses().add(existingCourse);
         existingCourse.getStudents().add(existingStudent);
 
         studentService.assignStudentToCourse(existingStudent);
@@ -165,7 +165,7 @@ public class StudentController {
         if (existingStudent == null)
             throw new NotFoundException("Student is not found with Id: " + studentId);
 
-        return existingStudent.getStudentCourses();
+        return existingStudent.getCourses();
     }
 
     @DeleteMapping("/{studentId}/courses/{courseId}")

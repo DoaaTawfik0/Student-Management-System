@@ -70,7 +70,7 @@ public class CourseController {
         // Safe iteration
         List<Student> students = new ArrayList<>(course.getStudents());
         for (Student student : students) {
-            student.getStudentCourses().remove(course);
+            student.getCourses().remove(course);
         }
 
         course.getStudents().clear(); // Clear the owning side

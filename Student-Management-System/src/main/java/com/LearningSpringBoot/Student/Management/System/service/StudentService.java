@@ -37,9 +37,9 @@ public class StudentService {
         Student existingStudent = checkStudentExist(id);
 
         /* do updates on fields*/
-        existingStudent.setStudentName(updatedStudent.getStudentName());
-        existingStudent.setStudentEmail(updatedStudent.getStudentEmail());
-        existingStudent.setStudentAge(updatedStudent.getStudentAge());
+        existingStudent.setName(updatedStudent.getName());
+        existingStudent.setEmail(updatedStudent.getEmail());
+        existingStudent.setDateOfBirth(updatedStudent.getDateOfBirth());
 
         /* apply updates by saving new data */
         studentRepository.save(existingStudent);
@@ -67,7 +67,7 @@ public class StudentService {
                 .orElseThrow(() -> new NotFoundException("Course not found with ID: " + courseId));
 
         // Remove associations from both sides
-        student.getStudentCourses().remove(course);
+        student.getCourses().remove(course);
         course.getStudents().remove(student);
 
         // Persist changes
