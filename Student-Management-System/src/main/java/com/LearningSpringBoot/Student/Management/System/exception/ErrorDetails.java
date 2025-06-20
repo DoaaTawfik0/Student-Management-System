@@ -1,4 +1,4 @@
-package exception;
+package com.LearningSpringBoot.Student.Management.System.exception;
 
 import java.time.LocalDateTime;
 
