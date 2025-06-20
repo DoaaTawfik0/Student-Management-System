@@ -1,14 +1,14 @@
-package controller;
+package com.LearningSpringBoot.Student.Management.System.controller;
 
-import entity.Book;
-import entity.Student;
-import exception.NotFoundException;
+import com.LearningSpringBoot.Student.Management.System.entity.Book;
+import com.LearningSpringBoot.Student.Management.System.entity.Student;
+import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import service.BookService;
-import service.StudentService;
+import com.LearningSpringBoot.Student.Management.System.service.BookService;
+import com.LearningSpringBoot.Student.Management.System.service.StudentService;
 
 import java.net.URI;
 import java.util.List;
@@ -42,14 +42,14 @@ public class BookController {
 
     @PostMapping("")
     public ResponseEntity<Book> addBook(@Valid @RequestBody Book book) {
-        Book existingbook = bookService.getBookById(book.getBookId());
+        Book existingbook = bookService.getBookById(book.getId());
         if (existingbook != null)
             return ResponseEntity.status(409).build();
 
         Book savedbook = bookService.addBook(book);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{bookId}").buildAndExpand(savedbook.getBookId()).toUri();
+                .path("/{bookId}").buildAndExpand(savedbook.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
 
@@ -58,7 +58,7 @@ public class BookController {
         Book savedBook = bookService.updateBook(bookId, updatedBook);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .buildAndExpand(savedBook.getBookId()).toUri();
+                .buildAndExpand(savedBook.getId()).toUri();
         return ResponseEntity.ok().location(location).build();
     }
 

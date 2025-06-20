@@ -1,16 +1,16 @@
-package controller;
+package com.LearningSpringBoot.Student.Management.System.controller;
 
-import entity.Book;
-import entity.Course;
-import entity.Student;
-import exception.NotFoundException;
+import com.LearningSpringBoot.Student.Management.System.entity.Book;
+import com.LearningSpringBoot.Student.Management.System.entity.Course;
+import com.LearningSpringBoot.Student.Management.System.entity.Student;
+import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import service.BookService;
-import service.CourseService;
-import service.StudentService;
+import com.LearningSpringBoot.Student.Management.System.service.BookService;
+import com.LearningSpringBoot.Student.Management.System.service.CourseService;
+import com.LearningSpringBoot.Student.Management.System.service.StudentService;
 
 import java.net.URI;
 import java.util.List;
@@ -74,12 +74,12 @@ public class StudentController {
             return ResponseEntity.notFound().build();
 
         //assign null to student fk in book table
-        for (Book book : student.getBooks()) {
+        for (Book book : student.getStudentBooks()) {
             book.setStudent(null);
             bookService.addBook(book);
         }
 
-        student.getCourses().clear(); /* Remove all courses -> handle M:M (student_course table) */
+        student.getStudentCourses().clear(); /* Remove all courses -> handle M:M (student_course table) */
 
         studentService.deleteStudent(studentId);
 
@@ -113,7 +113,7 @@ public class StudentController {
         if (existingStudent == null)
             throw new NotFoundException("Student is not found with Id: " + studentId);
 
-        return existingStudent.getBooks();
+        return existingStudent.getStudentBooks();
     }
 
     @DeleteMapping("/{studentId}/books/{bookId}")
@@ -148,7 +148,7 @@ public class StudentController {
         if (existingCourse == null)
             throw new NotFoundException("Course is not found with Id: " + courseId);
 
-        existingStudent.getCourses().add(existingCourse);
+        existingStudent.getStudentCourses().add(existingCourse);
         existingCourse.getStudents().add(existingStudent);
 
         studentService.assignStudentToCourse(existingStudent);
@@ -165,7 +165,7 @@ public class StudentController {
         if (existingStudent == null)
             throw new NotFoundException("Student is not found with Id: " + studentId);
 
-        return existingStudent.getCourses();
+        return existingStudent.getStudentCourses();
     }
 
     @DeleteMapping("/{studentId}/courses/{courseId}")

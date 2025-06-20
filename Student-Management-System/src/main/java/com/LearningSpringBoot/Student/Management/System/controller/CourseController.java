@@ -1,14 +1,14 @@
-package controller;
+package com.LearningSpringBoot.Student.Management.System.controller;
 
-import entity.Course;
-import entity.Student;
-import exception.NotFoundException;
+import com.LearningSpringBoot.Student.Management.System.entity.Course;
+import com.LearningSpringBoot.Student.Management.System.entity.Student;
+import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import service.CourseService;
+import com.LearningSpringBoot.Student.Management.System.service.CourseService;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class CourseController {
         // Safe iteration
         List<Student> students = new ArrayList<>(course.getStudents());
         for (Student student : students) {
-            student.getCourses().remove(course);
+            student.getStudentCourses().remove(course);
         }
 
         course.getStudents().clear(); // Clear the owning side
