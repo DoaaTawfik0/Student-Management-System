@@ -17,6 +17,7 @@ import lombok.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 public class Student {
 
     @Id
@@ -26,12 +27,9 @@ public class Student {
     @Size(min = 3, message = "Name of student must have at least 3 characters !!")
     private String studentName;
 
-    @Email(message = "Email must have a valid domain")
+    @Email(message = "Email must have a valid domain !!")
     private String studentEmail;
 
     @Size(min = 10, max = 23, message = "Age of Student must be between 10 & 23 !!")
     private int studentAge;
-
-
-
 }
