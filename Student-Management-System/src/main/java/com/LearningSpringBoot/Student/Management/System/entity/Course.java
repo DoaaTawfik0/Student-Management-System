@@ -1,4 +1,4 @@
-package entity;
+package com.LearningSpringBoot.Student.Management.System.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "course")
 public class Course {
 
     @Id
@@ -20,7 +19,7 @@ public class Course {
     @Size(min = 10, message = "name of course must have at least 10 characters !!")
     private String description;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(mappedBy = "studentCourses")
     @JsonIgnore
     private Set<Student> students = new HashSet<>();
 
