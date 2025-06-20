@@ -1,10 +1,8 @@
 package entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -27,4 +25,9 @@ public class Book {
 
     @Size(min = 6, message = "Author name must have at least 6 characters !!")
     private String bookAuthor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore //Skipping the field in JSON
+    @JoinColumn(name = "student_id", nullable = true) // This creates a foreign key column in the Book table
+    private Student student;
 }

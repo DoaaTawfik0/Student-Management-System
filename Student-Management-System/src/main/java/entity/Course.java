@@ -1,11 +1,12 @@
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "courses")
@@ -26,4 +27,8 @@ public class Course {
 
     @Size(min = 10, message = "name of course must have at least 10 characters !!")
     private String description;
+
+    @ManyToMany(mappedBy = "courses")
+    @JsonIgnore
+    private Set<Student> students = new HashSet<>();
 }
