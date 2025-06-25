@@ -34,6 +34,13 @@ public class Course {
         this.description = description;
     }
 
+    public Course(int id, String name, String description, Set<Student> students) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.students = students;
+    }
+
     public int getId() {
         return id;
     }
