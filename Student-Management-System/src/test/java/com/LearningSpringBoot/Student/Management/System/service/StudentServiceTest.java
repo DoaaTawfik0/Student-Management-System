@@ -1,11 +1,10 @@
-package com.LearningSpringBoot.Student.Management.System.serviceTest;
+package com.LearningSpringBoot.Student.Management.System.service;
 
 import com.LearningSpringBoot.Student.Management.System.entity.Course;
 import com.LearningSpringBoot.Student.Management.System.entity.Student;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import com.LearningSpringBoot.Student.Management.System.repository.CourseRepository;
 import com.LearningSpringBoot.Student.Management.System.repository.StudentRepository;
-import com.LearningSpringBoot.Student.Management.System.service.StudentService;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
