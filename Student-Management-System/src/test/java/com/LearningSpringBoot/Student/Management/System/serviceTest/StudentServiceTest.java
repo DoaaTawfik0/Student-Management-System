@@ -102,7 +102,7 @@ public class StudentServiceTest {
     }
 
     @Test
-    public void deleteStudent_NotFound_ShouldThrowException() {
+    public void deleteStudent_NotFound_ShouldThrowExceptionTest() {
         // Arrange
         Mockito.when(studentRepository.findById(999)).thenReturn(Optional.empty());
 
@@ -115,7 +115,7 @@ public class StudentServiceTest {
     }
 
     @Test
-    public void testAssignStudentToCourse() {
+    public void assignStudentToCourseTest() {
         // Arrange
         Mockito.when(studentRepository.save(student)).thenReturn(student);
 
@@ -127,7 +127,7 @@ public class StudentServiceTest {
     }
 
     @Test
-    public void testDeleteStudentFromCourse() {
+    public void deleteStudentFromCourseTest() {
         // Arrange
         student.getStudentCourses().add(course);
         course.getStudents().add(student);
