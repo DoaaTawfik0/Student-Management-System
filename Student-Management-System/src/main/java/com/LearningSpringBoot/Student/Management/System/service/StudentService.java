@@ -53,8 +53,8 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-    public void assignStudentToCourse(Student student) {
-        studentRepository.save(student);
+    public Student assignStudentToCourse(Student student) {
+        return studentRepository.save(student);
     }
 
 
