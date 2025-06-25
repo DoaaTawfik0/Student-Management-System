@@ -4,9 +4,7 @@ package com.LearningSpringBoot.Student.Management.System.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -30,7 +28,8 @@ public class Student {
     @NotBlank
     private String studentEmail;
 
-    @Size(min = 10, max = 23, message = "Age of Student must be between 10 & 23 !!")
+    @Min(value = 10, message = "Age must be at least 10")
+    @Max(value = 30, message = "Age must not exceed 30")
     private int studentAge;
 
     // 'student' refers to the field in Course , applying cascading
@@ -73,12 +72,13 @@ public class Student {
         this.studentBooks = studentBooks;
     }
 
-    @Size(min = 10, max = 23, message = "Age of Student must be between 10 & 23 !!")
+    @Min(value = 10, message = "Age must be at least 10")
+    @Max(value = 30, message = "Age must not exceed 30")
     public int getStudentAge() {
         return studentAge;
     }
 
-    public void setStudentAge(@Size(min = 10, max = 23, message = "Age of Student must be between 10 & 23 !!") int studentAge) {
+    public void setStudentAge(@Min(value = 10, message = "Age must be at least 10") @Max(value = 30, message = "Age must not exceed 30") int studentAge) {
         this.studentAge = studentAge;
     }
 
