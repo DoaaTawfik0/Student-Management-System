@@ -23,6 +23,17 @@ public class Course {
     @JsonIgnore
     private Set<Student> students = new HashSet<>();
 
+    //ParameterLess Constructor
+    public Course() {
+    }
+
+    //Parametrized Constructor
+    public Course(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

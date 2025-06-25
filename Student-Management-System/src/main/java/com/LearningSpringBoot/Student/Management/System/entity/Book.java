@@ -24,6 +24,17 @@ public class Book {
     @JoinColumn(name = "student_id", nullable = true) // This creates a foreign key column in the Book table
     private Student student;
 
+    //ParameterLess Constructor
+    public Book() {
+    }
+
+    //Parametrized Constructor
+    public Book(int id, String bookTitle, String bookAuthor) {
+        this.id = id;
+        this.bookTitle = bookTitle;
+        this.bookAuthor = bookAuthor;
+    }
+
     public int getId() {
         return id;
     }

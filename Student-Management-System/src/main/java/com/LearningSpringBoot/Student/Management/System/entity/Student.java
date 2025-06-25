@@ -45,6 +45,18 @@ public class Student {
     )
     private Set<Course> studentCourses = new HashSet<>();
 
+    //ParameterLess Constructor
+    public Student() {
+    }
+
+    //Parametrized Constructor
+    public Student(int id, String studentName, String studentEmail, int studentAge) {
+        this.id = id;
+        this.studentName = studentName;
+        this.studentEmail = studentEmail;
+        this.studentAge = studentAge;
+    }
+
     public Set<Course> getStudentCourses() {
         return studentCourses;
     }
