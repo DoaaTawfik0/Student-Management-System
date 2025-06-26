@@ -5,6 +5,7 @@ import com.LearningSpringBoot.Student.Management.System.entity.Student;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,6 +27,21 @@ public class BookController {
     @GetMapping("")
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
+    }
+
+    @GetMapping("/pagination/{pageNumber}/{pageSize}")
+    public Page<Book> paginateBooks(@PathVariable int pageNumber, @PathVariable int pageSize) {
+        return bookService.getBooksWithPagination(pageNumber, pageSize);
+    }
+
+    @GetMapping("/sorting/{field}")
+    public List<Book> sortBooks(@PathVariable String field) {
+        return bookService.getBooksWithSortingUponSomeField(field);
+    }
+
+    @GetMapping("/paginationAndSorting/{field}/{pageNumber}/{pageSize}")
+    public Page<Book> sortAndPaginateBooks(@PathVariable String field, @PathVariable int pageNumber, @PathVariable int pageSize) {
+        return bookService.getBooksWithSortingAndPagination(field, pageNumber, pageSize);
     }
 
     @GetMapping("/{bookId}")

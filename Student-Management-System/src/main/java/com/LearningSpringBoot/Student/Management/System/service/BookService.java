@@ -4,6 +4,10 @@ import com.LearningSpringBoot.Student.Management.System.entity.Book;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import com.LearningSpringBoot.Student.Management.System.repository.BookRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,6 +62,18 @@ public class BookService {
             throw new NotFoundException("Book not found with id: " + id);
 
         return existingBook;
+    }
+
+    public List<Book> getBooksWithSortingUponSomeField(String field) {
+        return bookRepository.findAll(Sort.by(Sort.Direction.ASC, field));
+    }
+
+    public Page<Book> getBooksWithPagination(int pageNumber, int pageSize) {
+        return bookRepository.findAll(PageRequest.of(pageNumber, pageSize));
+    }
+
+    public Page<Book> getBooksWithSortingAndPagination(String field, int pageNumber, int pageSize) {
+        return bookRepository.findAll(PageRequest.of(pageNumber, pageSize).withSort( Sort.by(Sort.Direction.ASC, field)));
     }
 
 }
