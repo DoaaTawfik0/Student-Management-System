@@ -4,9 +4,13 @@ package com.LearningSpringBoot.Student.Management.System.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "books")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
 
     @Id
@@ -24,9 +28,6 @@ public class Book {
     @JoinColumn(name = "student_id", nullable = true) // This creates a foreign key column in the Book table
     private Student student;
 
-    //ParameterLess Constructor
-    public Book() {
-    }
 
     //Parametrized Constructor
     public Book(int id, String bookTitle, String bookAuthor) {
@@ -35,12 +36,6 @@ public class Book {
         this.bookAuthor = bookAuthor;
     }
 
-    public Book(int id, String bookTitle, String bookAuthor, Student student) {
-        this.id = id;
-        this.bookTitle = bookTitle;
-        this.bookAuthor = bookAuthor;
-        this.student = student;
-    }
 
     public int getId() {
         return id;
