@@ -1,5 +1,6 @@
 package com.LearningSpringBoot.Student.Management.System.controller;
 
+import com.LearningSpringBoot.Student.Management.System.dto.ApiResponse;
 import com.LearningSpringBoot.Student.Management.System.entity.Book;
 import com.LearningSpringBoot.Student.Management.System.entity.Student;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
@@ -25,23 +26,30 @@ public class BookController {
 
 
     @GetMapping("")
-    public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+    public ApiResponse<List<Book>> getAllBooks() {
+        List<Book> books = bookService.getAllBooks();
+        return new ApiResponse<>(books.size(), books);
     }
 
     @GetMapping("/pagination/{pageNumber}/{pageSize}")
-    public Page<Book> paginateBooks(@PathVariable int pageNumber, @PathVariable int pageSize) {
-        return bookService.getBooksWithPagination(pageNumber, pageSize);
+    public ApiResponse<Page<Book>> paginateBooks(@PathVariable int pageNumber, @PathVariable int pageSize) {
+        Page<Book> booksWithPagination = bookService.getBooksWithPagination(pageNumber, pageSize);
+
+        return new ApiResponse<>(booksWithPagination.getSize(), booksWithPagination);
     }
 
     @GetMapping("/sorting/{field}")
-    public List<Book> sortBooks(@PathVariable String field) {
-        return bookService.getBooksWithSortingUponSomeField(field);
+    public ApiResponse<List<Book>> sortBooks(@PathVariable String field) {
+        List<Book> booksWithSorting = bookService.getBooksWithSortingUponSomeField(field);
+
+        return new ApiResponse<>(booksWithSorting.size(), booksWithSorting);
     }
 
     @GetMapping("/paginationAndSorting/{field}/{pageNumber}/{pageSize}")
-    public Page<Book> sortAndPaginateBooks(@PathVariable String field, @PathVariable int pageNumber, @PathVariable int pageSize) {
-        return bookService.getBooksWithSortingAndPagination(field, pageNumber, pageSize);
+    public ApiResponse<Page<Book>> sortAndPaginateBooks(@PathVariable String field, @PathVariable int pageNumber, @PathVariable int pageSize) {
+        Page<Book> booksWithSortingAndPagination = bookService.getBooksWithSortingAndPagination(field, pageNumber, pageSize);
+
+        return new ApiResponse<>(booksWithSortingAndPagination.getSize(), booksWithSortingAndPagination);
     }
 
     @GetMapping("/{bookId}")
