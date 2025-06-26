@@ -1,11 +1,16 @@
 package com.LearningSpringBoot.Student.Management.System.controller;
 
+import com.LearningSpringBoot.Student.Management.System.dto.ApiResponse;
+import com.LearningSpringBoot.Student.Management.System.entity.Book;
 import com.LearningSpringBoot.Student.Management.System.entity.Course;
 import com.LearningSpringBoot.Student.Management.System.entity.Student;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,9 +29,32 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping("")
-    public List<Course> retrieveAllCourses() {
-        return courseService.getAllCourses();
+    public ApiResponse<List<Course>> getAllCourses() {
+        List<Course> courses = courseService.getAllCourses();
+        return new ApiResponse<>(courses.size(),courses);
     }
+
+    @GetMapping("/pagination/{pageNumber}/{pageSize}")
+    public ApiResponse<Page<Course>> paginateCourses(@PathVariable int pageNumber, @PathVariable int pageSize) {
+        Page<Course> coursesWithPagination = courseService.getCoursesWithPagination(pageNumber, pageSize);
+
+        return new ApiResponse<>(coursesWithPagination.getSize(), coursesWithPagination);
+    }
+
+    @GetMapping("/sorting/{field}")
+    public ApiResponse<List<Course>> sortCourses(@PathVariable String field) {
+        List<Course> coursesWithSorting = courseService.getCoursesWithSortingUponSomeField(field);
+
+        return new ApiResponse<>(coursesWithSorting.size(), coursesWithSorting);
+    }
+
+    @GetMapping("/paginationAndSorting/{field}/{pageNumber}/{pageSize}")
+    public ApiResponse<Page<Course>> sortAndPaginateCourses(@PathVariable String field, @PathVariable int pageNumber, @PathVariable int pageSize) {
+        Page<Course> coursesWithSortingAndPagination = courseService.getCoursesWithSortingAndPagination(field, pageNumber, pageSize);
+
+        return new ApiResponse<>(coursesWithSortingAndPagination.getSize(), coursesWithSortingAndPagination);
+    }
+
 
     @GetMapping("/{courseId}")
     public Course getCourseById(@PathVariable int courseId) {

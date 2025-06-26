@@ -1,10 +1,14 @@
 package com.LearningSpringBoot.Student.Management.System.service;
 
+import com.LearningSpringBoot.Student.Management.System.entity.Book;
 import com.LearningSpringBoot.Student.Management.System.entity.Course;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import com.LearningSpringBoot.Student.Management.System.repository.CourseRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,5 +55,18 @@ public class CourseService {
 
         return existingCourse;
     }
+
+    public List<Course> getCoursesWithSortingUponSomeField(String field) {
+        return courseRepository.findAll(Sort.by(Sort.Direction.ASC, field));
+    }
+
+    public Page<Course> getCoursesWithPagination(int pageNumber, int pageSize) {
+        return courseRepository.findAll(PageRequest.of(pageNumber, pageSize));
+    }
+
+    public Page<Course> getCoursesWithSortingAndPagination(String field, int pageNumber, int pageSize) {
+        return courseRepository.findAll(PageRequest.of(pageNumber, pageSize).withSort( Sort.by(Sort.Direction.ASC, field)));
+    }
+
 
 }
