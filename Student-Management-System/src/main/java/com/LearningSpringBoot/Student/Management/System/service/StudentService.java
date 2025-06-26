@@ -6,20 +6,17 @@ import com.LearningSpringBoot.Student.Management.System.entity.Student;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import com.LearningSpringBoot.Student.Management.System.repository.CourseRepository;
 import com.LearningSpringBoot.Student.Management.System.repository.StudentRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class StudentService {
 
     private StudentRepository studentRepository;
     private CourseRepository courseRepository;
-
-    public StudentService(StudentRepository studentRepository, CourseRepository courseRepository) {
-        this.studentRepository = studentRepository;
-        this.courseRepository = courseRepository;
-    }
 
     public List<Student> getAllStudents() {
         return studentRepository.findAll();

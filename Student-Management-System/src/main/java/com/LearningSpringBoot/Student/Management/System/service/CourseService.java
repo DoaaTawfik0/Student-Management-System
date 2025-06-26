@@ -2,20 +2,18 @@ package com.LearningSpringBoot.Student.Management.System.service;
 
 import com.LearningSpringBoot.Student.Management.System.entity.Course;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
-import jakarta.validation.Valid;
-import org.springframework.stereotype.Service;
 import com.LearningSpringBoot.Student.Management.System.repository.CourseRepository;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CourseService {
 
     private CourseRepository courseRepository;
-
-    public CourseService(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
@@ -40,13 +38,11 @@ public class CourseService {
         return existingCourse;
     }
 
-
     public void deleteCourse(int id) {
         checkCourseExist(id);
 
         courseRepository.deleteById(id);
     }
-
 
     private Course checkCourseExist(int id) {
         Course existingCourse = getCourseById(id);
