@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Table(name = "students")
 @JsonPropertyOrder({"id", "name", "age", "email", "courses", "books"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@NoArgsConstructor
 public class Student {
 
     @Id
@@ -44,9 +46,6 @@ public class Student {
     )
     private Set<Course> studentCourses = new HashSet<>();
 
-    //ParameterLess Constructor
-    public Student() {
-    }
 
     //Parametrized Constructor
     public Student(int id, String studentName, String studentEmail, int studentAge) {
