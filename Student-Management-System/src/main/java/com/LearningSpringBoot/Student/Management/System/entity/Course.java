@@ -3,10 +3,15 @@ package com.LearningSpringBoot.Student.Management.System.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Course {
 
     @Id
@@ -23,9 +28,6 @@ public class Course {
     @JsonIgnore
     private Set<Student> students = new HashSet<>();
 
-    //ParameterLess Constructor
-    public Course() {
-    }
 
     //Parametrized Constructor
     public Course(int id, String name, String description) {
@@ -34,12 +36,6 @@ public class Course {
         this.description = description;
     }
 
-    public Course(int id, String name, String description, Set<Student> students) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.students = students;
-    }
 
     public int getId() {
         return id;
