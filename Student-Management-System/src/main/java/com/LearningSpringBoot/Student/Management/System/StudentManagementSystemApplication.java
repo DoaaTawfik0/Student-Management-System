@@ -1,6 +1,7 @@
 package com.LearningSpringBoot.Student.Management.System;
 
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,7 @@ import org.springframework.core.env.Environment;
 import java.util.Arrays;
 
 @SpringBootApplication
+@Slf4j
 public class StudentManagementSystemApplication {
 
     @Value("${URL}")
@@ -26,9 +28,9 @@ public class StudentManagementSystemApplication {
 
     @PostConstruct
     public void printEnvironmentVariable() {
-        System.out.println("Value of URL: " + URL);
-        System.out.println("Value of Pass: " + Pass);
-        System.out.println(("Active environment: " + Arrays.toString(env.getActiveProfiles())));
+        log.info("Value of URL: {}", URL);
+        log.info("Value of Pass: {}", Pass);
+        log.info("Active environment: {}", Arrays.toString(env.getActiveProfiles()));
     }
 
 
