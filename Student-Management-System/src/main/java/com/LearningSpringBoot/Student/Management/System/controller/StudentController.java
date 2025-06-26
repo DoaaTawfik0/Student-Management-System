@@ -5,6 +5,7 @@ import com.LearningSpringBoot.Student.Management.System.entity.Course;
 import com.LearningSpringBoot.Student.Management.System.entity.Student;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,18 +19,12 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/students")
+@AllArgsConstructor
 public class StudentController {
 
-
-    private final StudentService studentService;
-    private final BookService bookService;
-    private final CourseService courseService;
-
-    public StudentController(StudentService studentService, BookService bookService, CourseService courseService) {
-        this.studentService = studentService;
-        this.bookService = bookService;
-        this.courseService = courseService;
-    }
+    private StudentService studentService;
+    private BookService bookService;
+    private CourseService courseService;
 
     @GetMapping("")
     public List<Student> getAllStudents() {

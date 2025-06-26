@@ -4,6 +4,7 @@ import com.LearningSpringBoot.Student.Management.System.entity.Book;
 import com.LearningSpringBoot.Student.Management.System.entity.Student;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -15,16 +16,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/books")
+@AllArgsConstructor
 public class BookController {
 
     private BookService bookService;
-
     private StudentService studentService;
 
-    public BookController(BookService bookService, StudentService studentService) {
-        this.bookService = bookService;
-        this.studentService = studentService;
-    }
 
     @GetMapping("")
     public List<Book> getAllBooks() {
