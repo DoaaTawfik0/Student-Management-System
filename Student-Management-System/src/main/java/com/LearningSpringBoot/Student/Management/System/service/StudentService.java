@@ -7,6 +7,9 @@ import com.LearningSpringBoot.Student.Management.System.exception.NotFoundExcept
 import com.LearningSpringBoot.Student.Management.System.repository.CourseRepository;
 import com.LearningSpringBoot.Student.Management.System.repository.StudentRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,7 +57,6 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-
     public void deleteStudentFromCourse(int studentId, int courseId) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new NotFoundException("Student not found with ID: " + studentId));
@@ -79,4 +81,17 @@ public class StudentService {
 
         return existingStudent;
     }
+
+    public List<Student> getStudentsWithSortingUponSomeField(String field) {
+        return studentRepository.findAll(Sort.by(Sort.Direction.ASC, field));
+    }
+
+    public Page<Student> getStudentsWithPagination(int pageNumber, int pageSize) {
+        return studentRepository.findAll(PageRequest.of(pageNumber, pageSize));
+    }
+
+    public Page<Student> getStudentsWithSortingAndPagination(String field, int pageNumber, int pageSize) {
+        return studentRepository.findAll(PageRequest.of(pageNumber, pageSize).withSort( Sort.by(Sort.Direction.ASC, field)));
+    }
+
 }

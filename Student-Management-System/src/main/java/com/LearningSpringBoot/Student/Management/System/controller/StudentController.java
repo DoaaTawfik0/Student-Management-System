@@ -1,17 +1,19 @@
 package com.LearningSpringBoot.Student.Management.System.controller;
 
+import com.LearningSpringBoot.Student.Management.System.dto.ApiResponse;
 import com.LearningSpringBoot.Student.Management.System.entity.Book;
 import com.LearningSpringBoot.Student.Management.System.entity.Course;
 import com.LearningSpringBoot.Student.Management.System.entity.Student;
 import com.LearningSpringBoot.Student.Management.System.exception.NotFoundException;
-import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.LearningSpringBoot.Student.Management.System.service.BookService;
 import com.LearningSpringBoot.Student.Management.System.service.CourseService;
 import com.LearningSpringBoot.Student.Management.System.service.StudentService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
@@ -27,9 +29,33 @@ public class StudentController {
     private CourseService courseService;
 
     @GetMapping("")
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudents();
+    public ApiResponse<List<Student>> getAllStudents() {
+        List<Student> allStudents = studentService.getAllStudents();
+
+        return new ApiResponse<>(allStudents.size(), allStudents);
     }
+
+    @GetMapping("/pagination/{pageNumber}/{pageSize}")
+    public ApiResponse<Page<Student>> paginateStudents(@PathVariable int pageNumber, @PathVariable int pageSize) {
+        Page<Student> studentsWithPagination = studentService.getStudentsWithPagination(pageNumber, pageSize);
+
+        return new ApiResponse<>(studentsWithPagination.getSize(), studentsWithPagination);
+    }
+
+    @GetMapping("/sorting/{field}")
+    public ApiResponse<List<Student>> sortStudents(@PathVariable String field) {
+        List<Student> studentsWithSorting = studentService.getStudentsWithSortingUponSomeField(field);
+
+        return new ApiResponse<>(studentsWithSorting.size(), studentsWithSorting);
+    }
+
+    @GetMapping("/paginationAndSorting/{field}/{pageNumber}/{pageSize}")
+    public ApiResponse<Page<Student>> sortAndPaginateStudents(@PathVariable String field, @PathVariable int pageNumber, @PathVariable int pageSize) {
+        Page<Student> studentsWithSortingAndPagination = studentService.getStudentsWithSortingAndPagination(field, pageNumber, pageSize);
+
+        return new ApiResponse<>(studentsWithSortingAndPagination.getSize(), studentsWithSortingAndPagination);
+    }
+
 
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable int id) {
@@ -170,4 +196,6 @@ public class StudentController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/students").build().toUri();
         return ResponseEntity.ok().location(location).build();
     }
+
+
 }
