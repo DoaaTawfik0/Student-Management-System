@@ -10,6 +10,7 @@ import com.LearningSpringBoot.Student.Management.System.service.CourseService;
 import com.LearningSpringBoot.Student.Management.System.service.StudentService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/students")
 @AllArgsConstructor
+@Slf4j
 public class StudentController {
 
     private StudentService studentService;
@@ -30,6 +32,7 @@ public class StudentController {
 
     @GetMapping("")
     public ApiResponse<List<Student>> getAllStudents() {
+        log.info("getting all students is being executed!!");
         List<Student> allStudents = studentService.getAllStudents();
 
         return new ApiResponse<>(allStudents.size(), allStudents);
