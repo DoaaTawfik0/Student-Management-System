@@ -1,33 +1,54 @@
-HELP.md
+# === Java build output ===
+*.class
+*.jar
+*.war
+*.ear
+
+# === Maven ===
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
 
-### IntelliJ IDEA ###
-.idea
+# === Log files ===
+*.log
+logs/
+*.out
+
+# === Environment/config files (for secrets) ===
+.env
+application.properties
+application.yml
+application-*.properties
+application-*.yml
+
+# === OS-specific files ===
+.DS_Store
+Thumbs.db
+
+# === IntelliJ IDEA ===
+.idea/
 *.iws
 *.iml
 *.ipr
+out/
 
-### NetBeans ###
+# === Spring Tool Suite (STS) ===
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# === NetBeans ===
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+# === Visual Studio Code ===
 .vscode/
