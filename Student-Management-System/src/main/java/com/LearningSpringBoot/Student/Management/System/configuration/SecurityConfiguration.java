@@ -32,6 +32,7 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable) // disable CSRF for Postman testing
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/authenticate").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/students/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/books/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/courses/**").hasRole("ADMIN")
