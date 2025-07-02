@@ -1,7 +1,9 @@
 package com.LearningSpringBoot.Student.Management.System.configuration;
 
 
+import com.LearningSpringBoot.Student.Management.System.filter.JWTAuthFilter;
 import com.LearningSpringBoot.Student.Management.System.service.CustomUserDetailsService;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,20 +17,18 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfiguration {
 
     private final CustomUserDetailsService customUserDetailsService;
+    private JWTAuthFilter jwtAuthFilter;
 
-    public SecurityConfiguration(CustomUserDetailsService customUserDetailsService) {
-        this.customUserDetailsService = customUserDetailsService;
-    }
-
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    //    @Bean
+    public SecurityFilterChain securityFilterChainUsingBasicAuth(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable) // disable CSRF for Postman testing
                 .authorizeHttpRequests(auth -> auth
@@ -40,6 +40,22 @@ public class SecurityConfiguration {
                 )
                 .httpBasic(Customizer.withDefaults()) // enable Basic Authentication
                 .build();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChainUsingJWTAuth(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable) // disable CSRF for Postman testing
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/authenticate").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/students/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/books/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/courses/**").hasRole("ADMIN")
+                        .anyRequest().authenticated() // all other endpoints require authentication
+                );
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 
 
