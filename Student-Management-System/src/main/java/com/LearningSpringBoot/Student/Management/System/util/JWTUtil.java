@@ -42,12 +42,7 @@ public class JWTUtil {
     }
 
     public boolean validateToken(String token, String username, UserDetails userDetails) {
-        try {
             return isSameUsername(username, userDetails) && !isTokenExpired(token);
-        } catch (ExpiredJwtException ex) {
-            log.warn("Token expired: {}", ex.getMessage());
-            return false;
-        }
     }
 
     private boolean isSameUsername(String username, UserDetails userDetails) {
